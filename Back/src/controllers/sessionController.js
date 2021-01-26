@@ -10,7 +10,7 @@ module.exports = {
             .first();
 
         if (!user) {
-            return res.status(400).json({ error: 'Non-existent ID' })
+            return res.status(400).json({ error: 'No user found with this ID' })
         }
 
         return res.json(user);
