@@ -4,6 +4,13 @@ module.exports = {
 
     async index(req, res) {
         const user_id = req.headers.authorization;
+        const { page = 1 } = req.query;
+
+        const [count] = await connection('trades')
+            .where('user_id', user_id)
+            .count()
+
+            res.header('X-Total-Count', count['count(*)'])
 
         if (!user_id) {
             return res.status(401).json({ error: 'Operation not permitted.'});
@@ -11,7 +18,10 @@ module.exports = {
 
         const trades = await connection('trades')
             .where('user_id', user_id)
-            .select('*');
+            .join('users', 'users.id', '=', 'trades.user_id')
+            .limit(5)
+            .offset((page - 1) * 5)
+            .select(['trades.*', 'users.balance']);
 
         return res.json(trades)
     },
