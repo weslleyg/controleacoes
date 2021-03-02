@@ -37,7 +37,7 @@ export default function NewTrade() {
                     <input placeholder='Custos' />
                     <textarea placeholder='Anotações' />
 
-                    <button className='button' type='submit'>Cadastrar</button>
+                    <button className='button' type='submit'>Inserir</button>
                 </form>
             </div>
         </div>
