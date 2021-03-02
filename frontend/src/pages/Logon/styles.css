@@ -6,13 +6,18 @@
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .logon-container section.form {
   width: 100%;
-  max-width: 300px;
+  max-width: 350px;
   margin-right: 30px;
+}
+
+.logon-container img {
+  width: 595px;
+  height: 573px;
 }
 
 .logon-container section.form form {

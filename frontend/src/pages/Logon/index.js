@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import "./styles.css";
 import { FiLogIn } from 'react-icons/fi';
 
+import tradeImg from '../../assets/investiment.png';
+
 export default function Logon() {
     return (
         <div className="logon-container">
@@ -19,6 +21,8 @@ export default function Logon() {
                     </Link>
                 </form>
             </section>
+
+            <img src={tradeImg} alt="Trading" />
         </div>
     );
 };
