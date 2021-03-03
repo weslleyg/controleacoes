@@ -14,9 +14,7 @@ export default function Register() {
     async function handleRegister(e) {
         e.preventDefault();
 
-        const data = {balance};
-
-        const response = await api.post('register', data);
+        const response = await api.post('register', { balance });
 
         try {
             alert(`Seu ID de acesso: ${response.data.id}`);
