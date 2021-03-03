@@ -20,6 +20,7 @@ export default function Logon() {
 
             localStorage.setItem('userId', id);
             localStorage.setItem('balance', response.data.balance);
+            
             history.push('/profile');
         } catch(err) {
             alert('Falha no login!');

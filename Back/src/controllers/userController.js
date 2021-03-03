@@ -3,7 +3,7 @@ const connection = require('../database/connection');
 
 module.exports = {
     async create(req, res) {
-        const balance = req.body;
+        const balance = req.body.balance;
 
         const id = crypto.randomBytes(4).toString('HEX');
 
@@ -12,6 +12,8 @@ module.exports = {
             balance,
         })
 
-        return res.json({id});
+        console.log(balance);
+
+        return res.json({id, balance});
     }
 };

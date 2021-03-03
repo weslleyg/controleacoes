@@ -1,10 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiPower, FiTrash2 } from 'react-icons/fi';
 
-import './styles.css'
+import api from '../../services/api';
+import './styles.css';
 
 export default function Profile() {
+    const [trades, setTrades] = useState([]);
+
+    const userId = localStorage.getItem('userId');
+    const balance = localStorage.getItem('balance');
+
+    useEffect(() => {
+        api.get('trades', {
+            headers: {
+                Authorization: userId,
+            }
+        }).then(response => {
+            setTrades(response.data);
+        })
+    }, [userId]);
+
     return (
         <div className="profile-container">
             <header>
@@ -18,83 +34,46 @@ export default function Profile() {
             <h1>Trades cadastrados</h1>
 
             <ul>
-                <li>
-                    <strong>Data</strong>
-                    <p>Teste</p>
+                {trades.map(trade => (
+                    <li>
+                        <strong>Data</strong>
+                        <p>{trade.date}</p>
 
-                    <strong>Hora</strong>
-                    <p>11:40</p>
+                        <strong>Hora</strong>
+                        <p>{trade.time}</p>
 
-                    <strong>Long/Short</strong>
-                    <p>Long</p>
+                        <strong>Long/Short</strong>
+                        <p>{trade.type}</p>
 
-                    <strong>Ticket</strong>
-                    <p>B3SA3</p>
+                        <strong>Ticket</strong>
+                        <p>{trade.ticket}</p>
 
-                    <strong>Preço de Entrada</strong>
-                    <p>11,40</p>
+                        <strong>Preço de Entrada</strong>
+                        <p>{trade.entryPrice}</p>
 
-                    <strong>Nº Ações</strong>
-                    <p>100</p>
+                        <strong>Nº Ações</strong>
+                        <p>{trade.nShares}</p>
 
-                    <strong>Stop loss</strong>
-                    <p>10,40</p>
+                        <strong>Stop loss</strong>
+                        <p>{trade.stopPrice}</p>
 
-                    <strong>Take profit</strong>
-                    <p>12,40</p>
+                        <strong>Take profit</strong>
+                        <p>{trade.takePrice}</p>
 
-                    <strong>Preço de saída</strong>
-                    <p>12,20</p>
+                        <strong>Preço de saída</strong>
+                        <p>{trade.exitPrice}</p>
 
-                    <strong>Custos</strong>
-                    <p>2,10</p>
+                        <strong>Custos</strong>
+                        <p>{trade.tradeCosts}</p>
 
-                    <strong>Anotações</strong>
-                    <p>ahsyasuhausmalhbgufs</p>
+                        <strong>Anotações</strong>
+                        <p>{trade.tradeNotes}</p>
 
-                    <button type="button">
-                        <FiTrash2 size={20} color="#a8a8b3" />
-                    </button>
-                </li>
-
-                <li>
-                    <strong>Data</strong>
-                    <p>Teste</p>
-
-                    <strong>Hora</strong>
-                    <p>11:40</p>
-
-                    <strong>Long/Short</strong>
-                    <p>Long</p>
-
-                    <strong>Ticket</strong>
-                    <p>B3SA3</p>
-
-                    <strong>Preço de Entrada</strong>
-                    <p>11,40</p>
-
-                    <strong>Nº Ações</strong>
-                    <p>100</p>
-
-                    <strong>Stop loss</strong>
-                    <p>10,40</p>
-
-                    <strong>Take profit</strong>
-                    <p>12,40</p>
-
-                    <strong>Preço de saída</strong>
-                    <p>12,20</p>
-
-                    <strong>Custos</strong>
-                    <p>2,10</p>
-
-                    <strong>Anotações</strong>
-                    <p>ahsyasuhausmalhbgufs</p>
-
-                    <button type="button">
-                        <FiTrash2 size={20} color="#a8a8b3" />
-                    </button>
-                </li>
+                        <button type="button">
+                            <FiTrash2 size={20} color="#a8a8b3" />
+                        </button>
+                    </li>
+                ))}
             </ul>
 
         </div>
