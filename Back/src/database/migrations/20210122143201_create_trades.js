@@ -3,17 +3,17 @@ exports.up = function(knex) {
     return knex.schema.createTable('trades', function(table) {
         table.increments();
 
-        table.string('date')
-        table.string('time')
-        table.string('type')
-        table.string('ticket')
-        table.string('entryPrice')
-        table.string('nShares')
-        table.string('stopPrice')
-        table.string('takePrice')
-        table.string('exitPrice')
-        table.string('tradeCosts')
-        table.string('tradeNotes')
+        table.string('date');
+        table.string('time');
+        table.string('type');
+        table.string('ticket');
+        table.string('entryPrice');
+        table.string('nShares');
+        table.string('stopPrice');
+        table.string('takePrice');
+        table.string('exitPrice');
+        table.string('tradeCosts');
+        table.string('tradeNotes');
 
         table.string('user_id').notNullable();
 
