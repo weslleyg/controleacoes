@@ -15,7 +15,6 @@ module.exports = {
 
         const user = await connection('users')
             .where('email', email)
-            .select('password')
             .first();
 
         if (!user) {
@@ -27,7 +26,7 @@ module.exports = {
         };
 
         return res.json({
-            user,
+            email,
             token: generateToken({ id: user.id })
         });
     }
