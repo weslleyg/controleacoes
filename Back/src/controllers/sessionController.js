@@ -14,11 +14,9 @@ module.exports = {
         const { email, password } = req.body;
 
         const user = await connection('users')
-            .where('email', id)
+            .where('email', email)
             .select('password')
             .first();
-
-            console.log(user);
 
         if (!user) {
             return res.status(400).json({ error: 'User not found!' });
@@ -28,6 +26,9 @@ module.exports = {
             return res.status(400).json('Invalid password!');
         };
 
-        return res.json(user);
+        return res.json({
+            user,
+            token: generateToken({ id: user.id })
+        });
     }
 };

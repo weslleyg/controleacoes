@@ -1,6 +1,14 @@
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const authConfig = require('../config/auth.json');
 const connection = require('../database/connection');
+
+function generateToken(params = {}) {
+    return jwt.sign(params, authConfig.secret, {
+        expiresIn: 86400
+    });
+};
 
 module.exports = {
     async create(req, res) {
@@ -11,16 +19,27 @@ module.exports = {
 
         const id = crypto.randomBytes(4).toString('HEX');
 
-        console.log(name, email, password, balance)
-
-        await connection('users').insert({
-            id,
-            email,
-            name,
-            password,
-            balance
-        });
-
-        return res.json({id, name, email, password, balance});
+        try {
+            await connection('users').insert({
+                id,
+                email,
+                name,
+                password,
+                balance
+            });
+    
+            return res.json({
+                id,
+                name,
+                email,
+                password,
+                balance,
+                token: generateToken({ id: id })
+            });
+        } catch(err) {
+            return res.status(401).json({
+                error: "Email already exists!"
+            });
+        };
     }
 };
